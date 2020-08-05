@@ -12,8 +12,7 @@ class ToyCard extends Component {
             <>
                 <h2>{this.props.name}</h2>
                 <img src={this.props.image} className="toy-avatar" />
-                <p>Likes: {this.props.likes}</p>
-                <button class="ui tiny button">Add to Favorites</button>    
+                <p>Likes: {this.props.likes}</p>    
             </>
         );
     };
@@ -22,7 +21,7 @@ class ToyCard extends Component {
         return (
             <>
                 <br></br>
-                <button className="like-btn" onClick={this.props.likeToy(this.props.id, this.props.likes)}>♥️</button>
+                <button className="like-btn" onClick={this.handleLike}>♥️</button>
                 <button className="del-btn" onClick={this.handleDelete}>Donate to GoodWill</button>
             </>
         );
@@ -48,23 +47,23 @@ class ToyCard extends Component {
 
     // While the 'handleLike' method answers "HOW is the value of the likes key being updated?" (increasing by one)..
     // .. the 'addLike' method answers "WHOSE likes key is being updated?" (via passing the toy's id as an argument)
-    // handleLike = () => {
-    //     let newLikes = this.props.likes + 1
-    //     console.log(newLikes)
+    handleLike = () => {
+        let newLikes = this.props.likes + 1
+        console.log(newLikes)
 
-    //     fetch(`http://localhost:3000/toys/${this.props.id}`, { 
-    //         method: "PATCH",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             Accept: "application/json"
-    //         },
-    //         body: JSON.stringify({likes: newLikes })
-    //     })
-    //     .then(r => r.json())
-    //     .then(updatedToy => {
-    //         this.props.addLike(updatedToy.id)
-    //     });
-    // };
+        fetch(`http://localhost:3000/toys/${this.props.id}`, { 
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify({likes: newLikes })
+        })
+        .then(r => r.json())
+        .then(updatedToy => {
+            this.props.addLike(updatedToy.id)
+        });
+    };
 
     render() {
         return (
