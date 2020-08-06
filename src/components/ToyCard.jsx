@@ -7,13 +7,17 @@ class ToyCard extends Component {
         showFront: true
     }
 
+    handleFavClick = () => {
+        this.props.addToyToFav(this.props.toy)
+    }
+
     renderFront = () => {
         return (
             <>
                 <h2>{this.props.name}</h2>
                 <img src={this.props.image} className="toy-avatar" />
                 <p>Likes: {this.props.likes}</p>
-                <button class="ui tiny button">Add to Favorites</button>    
+                <button onClick={this.handleFavClick} class="ui tiny button">Add to Favorites</button>    
             </>
         );
     };
@@ -22,7 +26,7 @@ class ToyCard extends Component {
         return (
             <>
                 <br></br>
-                <button className="like-btn" onClick={this.props.likeToy(this.props.id, this.props.likes)}>♥️</button>
+                <button className="like-btn" onClick={() => this.props.likeToy(this.props.id, this.props.likes)}>♥️</button>
                 <button className="del-btn" onClick={this.handleDelete}>Donate to GoodWill</button>
             </>
         );

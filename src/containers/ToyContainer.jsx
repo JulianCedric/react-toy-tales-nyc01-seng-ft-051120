@@ -1,5 +1,5 @@
 import React from 'react';
-import ToyCard from './ToyCard'
+import ToyCard from '../components/ToyCard'
 
 class ToyContainer extends React.Component {
   state = {

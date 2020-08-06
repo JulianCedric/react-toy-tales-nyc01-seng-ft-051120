@@ -2,14 +2,13 @@ import React from 'react';
 import './App.css';
 import Header from './components/Header'
 import ToyForm from './components/ToyForm'
-import ToyContainer from './components/ToyContainer'
+import ToyContainer from './containers/ToyContainer'
 
 const API = "http://localhost:3000/toys"
 
 class App extends React.Component {
   state = {
     toys: [],
-    toy: {},
     display: false
   }
 
@@ -84,26 +83,31 @@ class App extends React.Component {
             return toy
         })})};
 
-  addToyToFav = (favToy) => {
-    // let favToy = this.state.toys.filter(toy => {
-    //   if (toy.id === id) {
-    //     return toy
-    //   }
-    // });
-    this.setState({toy: favToy})
+  addToyToFav = (toyObject) => {
+    let newArray = this.state.toys.map(toy => toy.id === toyObject.id)
+    console.log(newArray)
+    this.setState({toys: newArray})
   };
 
   render(){
     return (
       <div>
-        <Header />
-          {this.state.display
-          ? <ToyForm addNewToy={this.addNewToy}/>
-          : null}
-        <ToyContainer toys={this.state.toys} deleteToy={this.deleteToy} handleClick={this.handleClick} likeToy={this.likeToy} addToyToFav={this.addToyToFav} />
+      <Header />
+        <div class="ui vertically divided grid">
+          <div class="two column row">
+            <div class="column">
+              <ToyContainer toys={this.state.toys} deleteToy={this.deleteToy} handleClick={this.handleClick} likeToy={this.likeToy} addToyToFav={this.addToyToFav} />
+            </div>
+            <div class="column">
+              {this.state.display
+              ? <ToyForm addNewToy={this.addNewToy}/>
+              : null}
+            </div>
+          </div>
+        </div>
       </div>
     );
   };
 };
 
-export default App; 
+export default App;
